@@ -5,8 +5,6 @@
 **Task Type**: Aortic Valve Detection  
 **Training Date**: 2025 (Based on args.yaml configuration)
 
----
-
 ## 💻 Operating System Environment
 
 ### System Information
@@ -22,8 +20,6 @@
   - CUDA Version: 12.8
 - **Computing Capability**: Supports CUDA 12.8 + cuDNN 9.10
 
----
-
 ## 🐍 Programming Language & Environment
 
 ### Python Environment
@@ -31,8 +27,6 @@
 - **Environment Manager**: Conda (Miniconda3)
 - **Conda Environment Name**: AICUP
 - **Environment Path**: `/home/yucheng/miniconda3`
-
----
 
 ## 📦 Main Packages & Libraries
 
@@ -97,8 +91,6 @@ NVIDIA packages automatically installed with PyTorch:
 - **ONNX**: >=1.15.0 - Model format conversion
 - **onnxruntime-gpu**: >=1.16.0 - ONNX inference acceleration
 
----
-
 ## 🎯 Pretrained Model Usage
 
 ### Main Model: YOLOv12-X (yolo12x.pt)
@@ -160,8 +152,6 @@ model.train(
   - MixUp (0.1) - Mixing training samples
   - Random Erasing (0.2) - Simulating occlusion
 
----
-
 ## ⚙️ Training Configuration Details (YCtrain_aug3)
 
 ### Basic Settings
@@ -219,8 +209,6 @@ DFL Loss: 1.5 (distribution focal loss)
 - **Cache**: Enabled (accelerate data loading)
 - **Mixed Precision**: Enabled (reduce memory usage)
 
----
-
 ## 📊 Training Results
 
 ### Model Weights
@@ -235,8 +223,6 @@ Visualization files:
 - `BoxPR_curve.png` - Precision-Recall curve
 - `confusion_matrix.png` - Confusion matrix
 - `results.csv` - Detailed training logs
-
----
 
 ## 🚀 Environment Installation Commands
 
@@ -277,8 +263,6 @@ python -c "import torch; print(f'CUDA: {torch.cuda.is_available()}')"
 python -c "from ultralytics import YOLO; print('Ultralytics OK')"
 ```
 
----
-
 ## 📝 Reproduce Training
 
 ### Complete Training Command
@@ -307,12 +291,15 @@ python train_aortic_valve_local.py \
 python -c "
 from ultralytics import YOLO
 model = YOLO('./runs/detect/YCtrain_aug3/weights/best.pt')
-results = model.predict('test_image.png', conf=0.25)
-results[0].show()
+model = YOLO('./YCtrain/best1315.pt')
+results = model.predict(source="./data/test",
+              save=True,
+              imgsz=512,
+              device=0,
+              conf=0.15
+              )
 "
 ```
-
----
 
 ## 🔍 Key Technical Summary
 
