@@ -1,276 +1,276 @@
-# YCtrain_aug3 訓練環境說明文件
+# YCtrain_aug3 Training Environment Documentation
 
-## 📋 專案概述
-**訓練實驗名稱**: YCtrain_aug3  
-**任務類型**: 主動脈瓣膜檢測 (Aortic Valve Detection)  
-**訓練日期**: 2025年（根據 args.yaml 配置）
+## 📋 Project Overview
+**Training Experiment Name**: YCtrain_aug3  
+**Task Type**: Aortic Valve Detection  
+**Training Date**: 2025 (Based on args.yaml configuration)
 
 ---
 
-## 💻 作業系統環境
+## 💻 Operating System Environment
 
-### 系統資訊
-- **作業系統**: Ubuntu 24.04.3 LTS (Noble Numbat)
-- **核心版本**: Linux 6.14.0-35-generic
-- **架構**: x86_64 (64-bit)
-- **桌面環境**: 工作站環境
+### System Information
+- **Operating System**: Ubuntu 24.04.3 LTS (Noble Numbat)
+- **Kernel Version**: Linux 6.14.0-35-generic
+- **Architecture**: x86_64 (64-bit)
+- **Desktop Environment**: Workstation Environment
 
-### 硬體配置
+### Hardware Configuration
 - **GPU**: NVIDIA GeForce RTX 5090
   - VRAM: 32607 MiB (~32 GB)
   - CUDA Driver: 570.195.03
   - CUDA Version: 12.8
-- **運算能力**: 支援 CUDA 12.8 + cuDNN 9.10
+- **Computing Capability**: Supports CUDA 12.8 + cuDNN 9.10
 
 ---
 
-## 🐍 程式語言與環境
+## 🐍 Programming Language & Environment
 
-### Python 環境
-- **Python 版本**: 3.13.9
-- **環境管理**: Conda (Miniconda3)
-- **Conda 環境名稱**: AICUP
-- **環境路徑**: `/home/yucheng/miniconda3`
-
----
-
-## 📦 主要套件與函式庫
-
-### 1. 深度學習框架
-#### PyTorch 生態系統
-- **PyTorch**: 2.10.0.dev20251106+cu128 (CUDA 12.8 開發版)
-- **TorchVision**: 0.25.0.dev20251106+cu128
-- **TorchAudio**: 2.10.0.dev20251106+cu128
-
-**用途**:
-- 核心深度學習框架
-- 提供自動微分、GPU 加速運算
-- 支援最新 CUDA 12.8 最佳化
-
-#### CUDA 相關函式庫
-自動隨 PyTorch 安裝的 NVIDIA 套件：
-- `nvidia-cublas-cu12==12.8.4.1` - 矩陣運算加速
-- `nvidia-cudnn-cu12==9.10.2.21` - 深度神經網路加速
-- `nvidia-cuda-nvrtc-cu12==12.8.93` - 即時編譯
-- `nvidia-cufft-cu12==11.3.3.83` - 快速傅立葉轉換
-- `nvidia-nccl-cu12==2.27.5` - 多 GPU 通訊
-- `pytorch-triton==3.5.1` - GPU 核心優化
-
-### 2. YOLO 物件檢測框架
-- **Ultralytics YOLO**: >=8.3.0 (推薦 8.3.229+)
-
-**用途**:
-- 提供 YOLOv12 系列模型架構
-- 整合訓練、驗證、推論管線
-- 支援多種資料增強策略
-- 自動化超參數調整
-
-### 3. 電腦視覺與影像處理
-- **OpenCV**: opencv-python >=4.8.0
-- **Pillow**: 12.0.0
-
-**用途**:
-- 影像讀取、預處理
-- 幾何變換、色彩空間轉換
-- 影像標註與視覺化
-
-### 4. 數值運算與資料處理
-- **NumPy**: 2.3.4 - 多維陣列運算
-- **Pandas**: >=2.0.0 - 資料框處理與分析
-- **SciPy**: >=1.11.0 - 科學計算函式庫
-
-### 5. 視覺化工具
-- **Matplotlib**: >=3.7.0 - 繪圖與圖表
-- **Seaborn**: >=0.12.0 - 統計視覺化
-
-### 6. 配置與工具
-- **PyYAML**: 6.0.3 - YAML 配置檔解析
-- **tqdm**: 4.67.1 - 進度條顯示
-- **fsspec**: 文件系統抽象層
-- **huggingface-hub**: 0.36.0 - 模型權重下載
-
-### 7. 機器學習輔助工具
-- **scikit-learn**: >=1.3.0 - 評估指標、資料分割
-- **scikit-image**: >=0.21.0 - 影像處理演算法
-
-### 8. 模型優化與部署 (可選)
-- **ONNX**: >=1.15.0 - 模型格式轉換
-- **onnxruntime-gpu**: >=1.16.0 - ONNX 推論加速
+### Python Environment
+- **Python Version**: 3.10.19
+- **Environment Manager**: Conda (Miniconda3)
+- **Conda Environment Name**: AICUP
+- **Environment Path**: `/home/yucheng/miniconda3`
 
 ---
 
-## 🎯 預訓練模型使用
+## 📦 Main Packages & Libraries
 
-### 主模型: YOLOv12-X (yolo12x.pt)
+### 1. Deep Learning Framework
+#### PyTorch Ecosystem
+- **PyTorch**: 2.9.1 (CUDA 12.8 Support)
+- **TorchVision**: 0.24.1
+- **TorchAudio**: 2.10.0.dev20251113+cu128
 
-#### 模型規格
-- **模型名稱**: YOLOv12-X (Extra Large)
-- **模型檔案**: `yolo12x.pt`
-- **來源**: Ultralytics 官方預訓練權重
-- **預訓練資料集**: COCO Dataset (80 類通用物件)
+**Purpose**:
+- Core deep learning framework
+- Provides automatic differentiation, GPU acceleration
+- Supports latest CUDA 12.8 optimization
 
-#### 使用方式
+#### CUDA Related Libraries
+NVIDIA packages automatically installed with PyTorch:
+- `nvidia-cublas-cu12==12.8.4.1` - Matrix computation acceleration
+- `nvidia-cudnn-cu12==9.10.2.21` - Deep neural network acceleration
+- `nvidia-cuda-nvrtc-cu12==12.8.93` - Runtime compilation
+- `nvidia-cufft-cu12==11.3.3.83` - Fast Fourier Transform
+- `nvidia-nccl-cu12==2.27.5` - Multi-GPU communication
+- `pytorch-triton==3.5.1` - GPU kernel optimization
+
+### 2. YOLO Object Detection Framework
+- **Ultralytics YOLO**: 8.3.229
+
+**Purpose**:
+- Provides YOLOv12 series model architecture
+- Integrated training, validation, inference pipeline
+- Supports various data augmentation strategies
+- Automated hyperparameter tuning
+
+### 3. Computer Vision & Image Processing
+- **OpenCV**: opencv-python 4.10.0
+- **Pillow**: 11.3.0
+
+**Purpose**:
+- Image loading and preprocessing
+- Geometric transformations, color space conversion
+- Image annotation and visualization
+
+### 4. Numerical Computing & Data Processing
+- **NumPy**: 2.1.2 - Multi-dimensional array operations
+- **Pandas**: 2.3.3 - DataFrame processing and analysis
+- **SciPy**: 1.15.2 - Scientific computing library
+
+### 5. Visualization Tools
+- **Matplotlib**: 3.10.7 - Plotting and charting
+- **Seaborn**: >=0.12.0 - Statistical visualization
+
+### 6. Configuration & Utilities
+- **PyYAML**: 6.0.3 - YAML configuration file parsing
+- **tqdm**: 4.67.1 - Progress bar display
+- **fsspec**: Filesystem abstraction layer
+- **huggingface-hub**: 0.36.0 - Model weight downloading
+
+### 7. Machine Learning Support Tools
+- **scikit-learn**: 1.7.2 - Evaluation metrics, data splitting
+- **scikit-image**: >=0.21.0 - Image processing algorithms
+
+### 8. Model Optimization & Deployment (Optional)
+- **ONNX**: >=1.15.0 - Model format conversion
+- **onnxruntime-gpu**: >=1.16.0 - ONNX inference acceleration
+
+---
+
+## 🎯 Pretrained Model Usage
+
+### Main Model: YOLOv12-X (yolo12x.pt)
+
+#### Model Specifications
+- **Model Name**: YOLOv12-X (Extra Large)
+- **Model File**: `yolo12x.pt`
+- **Source**: Ultralytics Official Pretrained Weights
+- **Pretrained Dataset**: COCO Dataset (80 classes of common objects)
+
+#### Usage
 ```python
 from ultralytics import YOLO
 
-# 載入預訓練模型
+# Load pretrained model
 model = YOLO('yolo12x.pt')
 
-# 在自訂資料集上微調
+# Fine-tune on custom dataset
 model.train(
     data='datasets/aortic_valve.yaml',
     epochs=500,
     batch=8,
     imgsz=512,
-    pretrained=True  # 使用預訓練權重初始化
+    pretrained=True  # Initialize with pretrained weights
 )
 ```
 
-#### 對模型效能的貢獻
+#### Contributions to Model Performance
 
-##### 1. **特徵提取能力遷移**
-- **貢獻**: 預訓練模型已學習通用物件的低階特徵（邊緣、紋理、形狀）
-- **效果**: 
-  - 加快收斂速度（減少 30-50% 訓練時間）
-  - 降低過擬合風險
-  - 小樣本場景下表現更穩定
+##### 1. **Feature Extraction Capability Transfer**
+- **Contribution**: Pretrained model has learned low-level features of common objects (edges, textures, shapes)
+- **Effects**: 
+  - Accelerate convergence speed (reduce 30-50% training time)
+  - Reduce overfitting risk
+  - More stable performance in small sample scenarios
 
-##### 2. **架構優勢**
-- **模型大小**: X (Extra Large) 版本
-- **參數量**: 約 60-80M 參數
-- **特點**:
-  - 更深的網路層數，捕捉複雜特徵
-  - 更寬的通道數，增強表達能力
-  - 適合高解析度影像 (512x512)
+##### 2. **Architecture Advantages**
+- **Model Size**: X (Extra Large) version
+- **Parameters**: Approximately 60-80M parameters
+- **Features**:
+  - Deeper network layers to capture complex features
+  - Wider channels to enhance expressiveness
+  - Suitable for high-resolution images (512x512)
 
-##### 3. **多尺度檢測能力**
-- **P3-P5 特徵金字塔**: 檢測不同尺度的主動脈瓣膜
-- **遷移優勢**: 
-  - COCO 預訓練涵蓋大小物件
-  - 對醫學影像中的尺度變化更魯棒
+##### 3. **Multi-scale Detection Capability**
+- **P3-P5 Feature Pyramid**: Detect aortic valves at different scales
+- **Transfer Advantages**: 
+  - COCO pretraining covers objects of various sizes
+  - More robust to scale variations in medical images
 
-##### 4. **初始權重品質**
-- **Batch Normalization 統計**: 預訓練的 BN 層已收斂
-- **卷積核初始化**: 避免隨機初始化的不穩定性
-- **優化器狀態**: warmup 階段更平滑
+##### 4. **Initial Weight Quality**
+- **Batch Normalization Statistics**: Pretrained BN layers are converged
+- **Convolution Kernel Initialization**: Avoids instability of random initialization
+- **Optimizer State**: Smoother warmup phase
 
-##### 5. **資料增強相容性**
-- 預訓練模型對以下增強策略有良好適應：
-  - 幾何變換 (旋轉 10°, 平移 10%, 縮放 25%)
-  - MixUp (0.1) - 混合訓練樣本
-  - Random Erasing (0.2) - 模擬遮擋
+##### 5. **Data Augmentation Compatibility**
+- Pretrained model adapts well to the following augmentation strategies:
+  - Geometric transformations (rotation 10°, translation 10%, scale 25%)
+  - MixUp (0.1) - Mixing training samples
+  - Random Erasing (0.2) - Simulating occlusion
 
 ---
 
-## ⚙️ 訓練配置細節 (YCtrain_aug3)
+## ⚙️ Training Configuration Details (YCtrain_aug3)
 
-### 基本設定
+### Basic Settings
 ```yaml
-模型: yolo12x.pt (預訓練)
-資料集: datasets/aortic_valve.yaml
-訓練輪數: 500 epochs
-批次大小: 8
-影像尺寸: 512x512
-裝置: GPU 0 (RTX 5090)
-工作執行緒: 16
+Model: yolo12x.pt (pretrained)
+Dataset: datasets/aortic_valve.yaml
+Training Epochs: 500
+Batch Size: 8
+Image Size: 512x512
+Device: GPU 0 (RTX 5090)
+Worker Threads: 16
 ```
 
-### 優化器配置
+### Optimizer Configuration
 ```yaml
-優化器: SGD (auto)
-初始學習率: 0.01
-最終學習率: 0.01
-動量: 0.937
-權重衰減: 0.0005
+Optimizer: SGD (auto)
+Initial Learning Rate: 0.01
+Final Learning Rate: 0.01
+Momentum: 0.937
+Weight Decay: 0.0005
 Warmup: 3 epochs
-AMP (混合精度): 啟用
+AMP (Mixed Precision): Enabled
 ```
 
-### 損失函數權重
+### Loss Function Weights
 ```yaml
-Box Loss: 7.5 (定位損失)
-Class Loss: 0.5 (分類損失)
-DFL Loss: 1.5 (分佈焦點損失)
+Box Loss: 7.5 (localization loss)
+Class Loss: 0.5 (classification loss)
+DFL Loss: 1.5 (distribution focal loss)
 ```
 
-### 資料增強策略
-#### 幾何增強
-- **旋轉**: ±10° (適應不同掃描角度)
-- **平移**: ±10% (位移容忍)
-- **縮放**: ±25% (尺度變化)
-- **水平翻轉**: 50% (左右心室對稱)
-- **垂直翻轉**: 0% (避免解剖學不合理)
-- **剪切**: 0° (CT 影像無需剪切)
+### Data Augmentation Strategy
+#### Geometric Augmentation
+- **Rotation**: ±10° (adapt to different scan angles)
+- **Translation**: ±10% (position tolerance)
+- **Scale**: ±25% (scale variation)
+- **Horizontal Flip**: 50% (left-right ventricle symmetry)
+- **Vertical Flip**: 0% (avoid anatomically unreasonable)
+- **Shear**: 0° (CT images don't need shearing)
 
-#### 像素級增強
-- **HSV 調整**: 全部關閉 (灰階 CT 影像)
-- **MixUp**: 0.1 (輕度樣本混合)
-- **Random Erasing**: 0.2 (模擬遮擋與偽影)
-- **Mosaic**: 0 (關閉，CT 拼接不自然)
+#### Pixel-level Augmentation
+- **HSV Adjustment**: All disabled (grayscale CT images)
+- **MixUp**: 0.1 (mild sample mixing)
+- **Random Erasing**: 0.2 (simulate occlusion and artifacts)
+- **Mosaic**: 0 (disabled, CT mosaic looks unnatural)
 
-#### 進階增強
-- **Multi-scale Training**: 啟用 (提升尺度泛化)
+#### Advanced Augmentation
+- **Multi-scale Training**: Enabled (improve scale generalization)
 - **Auto Augment**: RandAugment
-- **Close Mosaic**: 最後 10 epochs 關閉所有增強
+- **Close Mosaic**: Disable all augmentation in last 10 epochs
 
-### 訓練策略
-- **Early Stopping**: 50 epochs 無改善停止
-- **檢查點儲存**: 每 10 epochs 儲存
-- **快取**: 啟用 (加速資料讀取)
-- **混合精度**: 啟用 (減少記憶體佔用)
-
----
-
-## 📊 訓練結果
-
-### 模型權重
-訓練產生的權重檔案：
-- `best.pt` - 驗證集最佳模型
-- `last.pt` - 最終訓練模型
-- `epoch{N}.pt` - 每 10 輪儲存的檢查點
-
-### 評估指標
-可視化檔案：
-- `BoxF1_curve.png` - F1 分數曲線
-- `BoxPR_curve.png` - Precision-Recall 曲線
-- `confusion_matrix.png` - 混淆矩陣
-- `results.csv` - 詳細訓練日誌
+### Training Strategy
+- **Early Stopping**: Stop if no improvement for 50 epochs
+- **Checkpoint Saving**: Save every 10 epochs
+- **Cache**: Enabled (accelerate data loading)
+- **Mixed Precision**: Enabled (reduce memory usage)
 
 ---
 
-## 🚀 環境安裝指令
+## 📊 Training Results
 
-### 方法 1: 使用 requirements.txt
+### Model Weights
+Generated weight files from training:
+- `best.pt` - Best model on validation set
+- `last.pt` - Final trained model
+- `epoch{N}.pt` - Checkpoints saved every 10 epochs
+
+### Evaluation Metrics
+Visualization files:
+- `BoxF1_curve.png` - F1 score curve
+- `BoxPR_curve.png` - Precision-Recall curve
+- `confusion_matrix.png` - Confusion matrix
+- `results.csv` - Detailed training logs
+
+---
+
+## 🚀 Environment Installation Commands
+
+### Method 1: Using requirements.txt
 ```bash
-# 創建 conda 環境
-conda create -n AICUP python=3.13 -y
+# Create conda environment
+conda create -n AICUP python=3.10 -y
 conda activate AICUP
 
-# 安裝 PyTorch (CUDA 12.8)
+# Install PyTorch (CUDA 12.8)
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
 
-# 安裝其他套件
+# Install other packages
 pip install -r requirements.txt
 ```
 
-### 方法 2: 手動安裝關鍵套件
+### Method 2: Manual Installation of Key Packages
 ```bash
 conda activate AICUP
 
-# 核心框架
-pip install torch==2.10.0.dev20251106+cu128 --index-url https://download.pytorch.org/whl/cu128
-pip install ultralytics>=8.3.0
+# Core framework
+pip install torch==2.9.1 torchvision==0.24.1 --index-url https://download.pytorch.org/whl/cu128
+pip install ultralytics==8.3.229
 
-# 視覺與資料處理
+# Vision and data processing
 pip install opencv-python opencv-contrib-python
 pip install numpy pandas scipy matplotlib seaborn
 pip install Pillow PyYAML tqdm
 
-# 機器學習工具
+# Machine learning tools
 pip install scikit-learn scikit-image
 ```
 
-### 驗證安裝
+### Verify Installation
 ```bash
 python -c "import torch; print(f'PyTorch: {torch.__version__}')"
 python -c "import torch; print(f'CUDA: {torch.cuda.is_available()}')"
@@ -279,15 +279,15 @@ python -c "from ultralytics import YOLO; print('Ultralytics OK')"
 
 ---
 
-## 📝 重現訓練
+## 📝 Reproduce Training
 
-### 完整訓練指令
+### Complete Training Command
 ```bash
 cd /home/yucheng/Desktop/AICUP/hailey
 
 python train_aortic_valve_local.py \
-  --img-root <影像路徑> \
-  --lbl-root <標籤路徑> \
+  --img-root <image_path> \
+  --lbl-root <label_path> \
   --output-dir ./datasets \
   --model-size x \
   --epochs 500 \
@@ -302,7 +302,7 @@ python train_aortic_valve_local.py \
   --name YCtrain_aug3
 ```
 
-### 使用預訓練模型推論
+### Inference Using Pretrained Model
 ```bash
 python -c "
 from ultralytics import YOLO
@@ -314,31 +314,30 @@ results[0].show()
 
 ---
 
-## 🔍 關鍵技術總結
+## 🔍 Key Technical Summary
 
-### 預訓練遷移學習的效益
-1. **收斂速度**: 加快 40%+
-2. **泛化能力**: 減少過擬合
-3. **小資料集友善**: 僅需數千張標註影像
-4. **特徵複用**: COCO 的通用特徵適用於醫學影像
+### Benefits of Pretrained Transfer Learning
+1. **Convergence Speed**: Accelerate by 40%+
+2. **Generalization Ability**: Reduce overfitting
+3. **Small Dataset Friendly**: Only requires thousands of annotated images
+4. **Feature Reuse**: COCO's general features applicable to medical images
 
-### YOLOv12-X 優勢
-- 最大模型容量，適合複雜醫學影像
-- 512x512 高解析度保留細節
-- 單階段檢測器，推論速度快
+### YOLOv12-X Advantages
+- Maximum model capacity, suitable for complex medical images
+- 512x512 high resolution preserves details
+- Single-stage detector, fast inference speed
 
-### 資料增強策略
-- 針對 CT 影像特性設計（灰階、解剖學限制）
-- 平衡幾何變換與像素擾動
-- 避免不合理的增強（如垂直翻轉、Mosaic）
-
----
-
-## 📧 聯絡資訊
-**專案路徑**: `/home/yucheng/Desktop/AICUP/hailey`  
-**訓練輸出**: `./runs/detect/YCtrain_aug3`  
-**環境名稱**: AICUP (Conda)
+### Data Augmentation Strategy
+- Designed for CT image characteristics (grayscale, anatomical constraints)
+- Balance geometric transformations and pixel perturbations
+- Avoid unreasonable augmentation (e.g., vertical flip, Mosaic)
 
 ---
 
-**文件生成日期**: 2025年12月4日
+**Project Path**: `/home/yucheng/Desktop/AICUP/hailey`  
+**Training Output**: `./runs/detect/YCtrain_aug3`  
+**Environment Name**: AICUP (Conda)
+
+---
+
+**Document Generated**: December 4, 2025

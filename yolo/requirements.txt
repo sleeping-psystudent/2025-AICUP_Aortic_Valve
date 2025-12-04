@@ -1,27 +1,27 @@
 # YCtrain_aug3 Training Environment Requirements
 # Generated for AICUP conda environment
-# Python 3.13.9
+# Python 3.10.19
 
 # Core Deep Learning Framework
-torch==2.10.0.dev20251106+cu128
-torchvision==0.25.0.dev20251106+cu128
-torchaudio==2.10.0.dev20251106+cu128
+torch==2.9.1
+torchvision==0.24.1
+torchaudio==2.10.0.dev20251113+cu128
 
 # YOLO Framework (需要安裝以使用 yolo12x.pt)
-ultralytics>=8.3.0
+ultralytics==8.3.229
 
 # Computer Vision & Image Processing
-opencv-python>=4.8.0
-opencv-contrib-python>=4.8.0
-Pillow==12.0.0
+opencv-python==4.10.0
+opencv-python-headless==4.10.0
+Pillow==11.3.0
 
 # Data Processing & Analysis
-numpy==2.3.4
-pandas>=2.0.0
-scipy>=1.11.0
+numpy==2.1.2
+pandas==2.3.3
+scipy==1.15.2
 
 # Visualization
-matplotlib>=3.7.0
+matplotlib==3.10.7
 seaborn>=0.12.0
 
 # Configuration & Data Handling
@@ -30,9 +30,11 @@ PyYAML==6.0.3
 # Progress Bar & Utilities
 tqdm==4.67.1
 
-# Additional ML/CV Libraries
-scikit-learn>=1.3.0
+# Additional CV Libraries (optional)
 scikit-image>=0.21.0
+
+# Machine Learning (required)
+scikit-learn==1.7.2
 
 # Model Export & Optimization (optional)
 onnx>=1.15.0
