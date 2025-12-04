@@ -1,1 +1,0 @@
-# 2025AICUP_Aortic_Valve

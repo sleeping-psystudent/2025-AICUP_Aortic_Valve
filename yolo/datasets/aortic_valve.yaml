@@ -1,0 +1,11 @@
+
+names:
+- aortic_valve
+nc: 1
+# Set path to the dataset root (relative to project CWD).
+# Using './datasets' ensures Ultralytics finds the train/val subfolders.
+path: ./datasets
+train: train/images
+val: val/images
+
+# train: weird, val: +-50

@@ -1,0 +1,109 @@
+# Number of classes
+nc: 1
+
+# Input channels
+ch: 3
+
+# Model scaling
+scale: n  # Start with 'n' (nano) for testing
+scales:
+  n: [0.25, 0.33, 1024]  # width, depth, max_channels
+  s: [0.50, 0.33, 1024]
+  m: [0.50, 0.67, 768]
+  l: [0.75, 1.00, 512]
+  x: [1.00, 1.33, 512]
+
+# ============================================================================
+# BACKBONE: Simplified Dual-Branch Architecture
+# ============================================================================
+backbone:
+  # Layer 0: Shared HGStem
+  - [-1, 1, HGStem, [64]]  # 3 -> 64 channels
+  
+  # ========== BACKBONE_A: Detail Branch ==========
+  # Stage 1
+  - [-1, 1, Conv, [128, 3, 2]]  # Layer 1: 64->128, downsample
+  - [-1, 1, HGBlock, [128]]     # Layer 2: HGBlock
+  
+  # Stage 2
+  - [-1, 1, Conv, [256, 3, 2]]  # Layer 3: 128->256, downsample  
+  - [-1, 1, HGBlock, [256]]     # Layer 4: HGBlock (P3_A)
+  
+  # Stage 3
+  - [-1, 1, Conv, [512, 3, 2]]  # Layer 5: 256->512, downsample
+  - [-1, 1, HGBlock, [512]]     # Layer 6: HGBlock (P4_A)
+  
+  # Stage 4
+  - [-1, 1, Conv, [512, 3, 2]]  # Layer 7: 512->512, downsample
+  - [-1, 1, HGBlock, [512]]     # Layer 8: HGBlock (P5_A)
+  
+  # ========== BACKBONE_B: Semantic Branch ==========
+  # Start from layer 0 (HGStem output)
+  
+  # Stage 1
+  - [0, 1, Conv, [128, 3, 2]]   # Layer 9: from stem, 64->128
+  - [-1, 1, DGCSBlock, [128]]   # Layer 10: DGCS
+  
+  # Stage 2
+  - [-1, 1, Conv, [256, 3, 2]]  # Layer 11: 128->256, downsample
+  - [-1, 1, DGCSBlock, [256]]   # Layer 12: DGCS (P3_B)
+  
+  # Stage 3
+  - [-1, 1, Conv, [512, 3, 2]]  # Layer 13: 256->512, downsample
+  - [-1, 1, DGCSBlock, [512]]   # Layer 14: DGCS (P4_B)
+  
+  # Stage 4
+  - [-1, 1, Conv, [512, 3, 2]]  # Layer 15: 512->512, downsample
+  - [-1, 1, DGCSBlock, [512]]   # Layer 16: DGCS (P5_B)
+
+# ============================================================================
+# HEAD: Simplified Neck + Detection
+# ============================================================================
+head:
+  # P4 features: Fuse layer 6 (P4_A) and layer 14 (P4_B)
+  - [[6, 14], 1, DLUBlock, [512]]  # Layer 17: P4 fusion
+  
+  # P5 features: Fuse layer 8 (P5_A) and layer 16 (P5_B)  
+  - [[8, 16], 1, DLUBlock, [512]]  # Layer 18: P5 fusion
+  
+  # Upsample P5 to P4 scale
+  - [-1, 1, nn.Upsample, [None, 2, 'nearest']]  # Layer 19
+  
+  # Concatenate with P4_fused
+  - [[-1, 17], 1, Concat, [1]]  # Layer 20
+  
+  # Process P4 features
+  - [-1, 1, Conv, [512, 3, 1]]  # Layer 21: refine P4
+  
+  # P3 features: Fuse layer 4 (P3_A) and layer 12 (P3_B)
+  - [[4, 12], 1, DLUBlock, [256]]  # Layer 22: P3 fusion
+  
+  # Upsample P4 to P3 scale  
+  - [21, 1, nn.Upsample, [None, 2, 'nearest']]  # Layer 23
+  
+  # Concatenate with P3_fused
+  - [[-1, 22], 1, Concat, [1]]  # Layer 24
+  
+  # Process P3 features (detection output 1)
+  - [-1, 1, Conv, [256, 3, 1]]  # Layer 25: P3 output
+  
+  # Downsample P3 to P4 scale
+  - [-1, 1, Conv, [512, 3, 2]]  # Layer 26
+  
+  # Concatenate with P4 features
+  - [[-1, 21], 1, Concat, [1]]  # Layer 27
+  
+  # Process P4 features (detection output 2)
+  - [-1, 1, Conv, [512, 3, 1]]  # Layer 28: P4 output
+  
+  # Downsample P4 to P5 scale
+  - [-1, 1, Conv, [512, 3, 2]]  # Layer 29
+  
+  # Concatenate with P5 features
+  - [[-1, 18], 1, Concat, [1]]  # Layer 30
+  
+  # Process P5 features (detection output 3)
+  - [-1, 1, Conv, [512, 3, 1]]  # Layer 31: P5 output
+  
+  # Detection head on 3 scales
+  - [[25, 28, 31], 1, Detect, [nc]]  # Layer 32: Detect(P3, P4, P5)
