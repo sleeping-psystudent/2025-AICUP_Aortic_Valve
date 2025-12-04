@@ -332,12 +332,3 @@ results[0].show()
 - Balance geometric transformations and pixel perturbations
 - Avoid unreasonable augmentation (e.g., vertical flip, Mosaic)
 
----
-
-**Project Path**: `/home/yucheng/Desktop/AICUP/hailey`  
-**Training Output**: `./runs/detect/YCtrain_aug3`  
-**Environment Name**: AICUP (Conda)
-
----
-
-**Document Generated**: December 4, 2025
