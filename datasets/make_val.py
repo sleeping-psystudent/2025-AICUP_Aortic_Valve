@@ -6,7 +6,7 @@ from pathlib import Path
 # ========================
 # 基本設定
 # ========================
-ROOT = Path(".")  # 你可以改成實際路徑，例如 Path("/home/adl/Desktop/2025_AI_CUP")
+ROOT = Path(".") 
 IMAGES_ROOT = ROOT / "training_image"
 LABELS_ROOT = ROOT / "training_label"
 
@@ -20,10 +20,8 @@ PATIENT_NAMES = [f"patient{pid:04d}" for pid in PATIENT_IDS]
 # positive : negative = 1 : 5
 NEG_PER_POS = 5
 
-# 允許的影像副檔名
 IMG_EXTS = [".png", ".jpg", ".jpeg", ".bmp", ".tif", ".tiff"]
 
-# 隨機種子（可固定方便重現）
 RANDOM_SEED = 42
 random.seed(RANDOM_SEED)
 
