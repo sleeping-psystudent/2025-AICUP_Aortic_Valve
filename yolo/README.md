@@ -1,4 +1,4 @@
-# YCtrain_aug3 Training Environment Documentation
+# YCtrain Training Environment Documentation
 
 ## 📋 Project Overview
 **Training Experiment Name**: YCtrain_aug3  
