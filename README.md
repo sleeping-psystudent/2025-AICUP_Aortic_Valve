@@ -178,6 +178,10 @@ Each file uses:
 img_name class score x1 y1 x2 y2   # normalized coordinates
 ```
 
+## Reproducing DINO outputs from checkpoints
+[DINO/inference_replication.ipynb](DINO/inference_replication.ipynb) is a self-contained notebook to reproduce the outputs used in the WBF ensemble from the provided checkpoints. \
+The recommended approach is to upload the notebook to Google Colab and run the notebook to clone the repo to Colab, download checkpoints and data, and then generate the two predictions files used in the WBF ensemble described below.
+
 ---
 
 # 🔷 5. Weighted Box Fusion (WBF) Ensemble
