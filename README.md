@@ -48,8 +48,6 @@ ensemble-boxes
 | GPU       | NVIDIA RTX 4090 / 5090 tested |
 | OS        | Ubuntu 22.04 / 24.04          |
 
----
-
 # 📁 2. Data Preprocessing
 
 Before training YOLO or DINO, run the preprocessing scripts to organize training/validation data into YOLO-format folders.
@@ -177,8 +175,6 @@ Each file uses:
 ```
 img_name class score x1 y1 x2 y2   # normalized coordinates
 ```
-
----
 
 # 🔷 5. Weighted Box Fusion (WBF) Ensemble
 
