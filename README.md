@@ -9,8 +9,6 @@ This repository provides the full pipeline used for the **2025 AI CUP – Aortic
 
 This README offers a complete, step-by-step reproducibility guide.
 
----
-
 # 📦 1. Environment Setup
 
 ## Install dependencies
@@ -99,8 +97,6 @@ val_label/
 * YOLO and DINO **share the same preprocessed data**.
 * If your dataset is already YOLO-ready, YOLO training can skip preprocessing via `--skip-organize`.
 * Preprocessing ensures filename consistency, correct image–label pairing, and standardized annotation format.
-
----
 
 # 🟦 3. YOLOv12 Training
 
@@ -221,8 +217,6 @@ Final prediction file example:
 predict_txt/images_56.txt
 ```
 
----
-
 # 🔁 6. Complete Reproducibility Pipeline
 
 ### Step 1 — Preprocess data
@@ -247,8 +241,6 @@ Store all txt results in `predict_txt/`.
 ### Step 5 — Apply WBF ensemble
 
 Combines predictions into final output.
-
----
 
 # 📂 7. Repository Structure
 
