@@ -18,6 +18,11 @@ The models were trained in Python 3.12 environments.
     ```bash
     pip install -r requirements.txt
     ```
+    if not on colab or kaggle, run 
+    ```
+    !pip install "setuptools<70" wheel Cython numpy
+    !pip install -r requirements.txt --no-build-isolation
+    ```
 
 4.  **Compile CUDA Operators:**
     ```bash
