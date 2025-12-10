@@ -48,8 +48,6 @@ ensemble-boxes
 | GPU       | NVIDIA RTX 4090 / 5090 tested |
 | OS        | Ubuntu 22.04 / 24.04          |
 
----
-
 # 📁 2. Data Preprocessing
 
 Before training YOLO or DINO, run the preprocessing scripts to organize training/validation data into YOLO-format folders.
@@ -144,8 +142,6 @@ Output directory:
 ```
 runs/detect/YCtrain/
 ```
-
----
 
 # 🟧 4. DINO Training (4-scale & 5-scale)
 
