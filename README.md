@@ -143,8 +143,6 @@ Output directory:
 runs/detect/YCtrain/
 ```
 
----
-
 # 🟧 4. DINO Training (4-scale & 5-scale)
 
 DINO training is performed via notebooks instead of a python script.
